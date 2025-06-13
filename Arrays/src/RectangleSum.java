@@ -20,7 +20,7 @@ public class RectangleSum {
         int l2 = sc.nextInt();
         int r2 = sc.nextInt();
         System.out.println("Rectangle Sum " + findSum(matrix, l1, r1, l2, r2));
-        System.out.println("Rectangle Sum 2 " + findSum2(matrix, l1, r1, l2, r2));
+        System.out.println("Rectangle Sum 3 " + findSum3(matrix, l1, r1, l2, r2));
     }
 
     static int findSum(int[][] matrix, int l1, int r1, int l2, int r2) {
@@ -57,5 +57,27 @@ public class RectangleSum {
                 matrix[i][j] += matrix[i][j-1];
             }
         }
+
+        for(int j=0; j<c; j++){
+            for(int i=1; i<r; i++){
+                matrix[i][j] += matrix[i-1][j];
+            }
+        }
+    }
+
+    static int findSum3(int[][] matrix, int l1, int r1, int l2, int r2){
+        int ans =0 ;
+        int sum=0, left=0, up=0, leftUp=0;
+        findPrefixSumMatrix(matrix);
+        sum = matrix[l2][r2];
+        if(l1>=1)
+            up = matrix[l1-1][r2];
+        if(r1>=1)
+            left = matrix[l2][r1-1];
+        if(r1 >= 1 && l1 >= 1)
+            leftUp = matrix[l1-1][r1-1];
+        ans = sum - left - up + leftUp;
+
+        return ans;
     }
 }
